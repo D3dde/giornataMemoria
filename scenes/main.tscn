@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=3 uid="uid://jxvaln4eq8xj"]
+
+[ext_resource type="Texture2D" uid="uid://yws8m5sw5878" path="res://textures/Vector/texture_01.svg" id="1_gr24q"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_wm6nw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ekhn"]
+albedo_texture = ExtResource("1_gr24q")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sd3ex"]
+size = Vector2(100, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_atbuw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wfrkt"]
+
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("camera")]
+script = ExtResource("1_wm6nw")
+camera = NodePath("Camera3D")
+
+[node name="DefaultPosition" type="Marker3D" parent="."]
+transform = Transform3D(0.00616089, 0, 0.999981, 0, 1, 0, -0.999981, 0, 0.00616089, 9.12164, 7.33214, -3.52639)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.00616089, 0, 0.999981, 0, 1, 0, -0.999981, 0, 0.00616089, 9.12164, 7.33214, -3.52639)
+
+[node name="items" type="Node" parent="."]
+
+[node name="plane" type="MeshInstance3D" parent="items"]
+material_override = SubResource("StandardMaterial3D_3ekhn")
+mesh = SubResource("PlaneMesh_sd3ex")
+skeleton = NodePath("../..")
+
+[node name="immagine" type="StaticBody3D" parent="items"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.1788, 3.47205, 4.72339)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="items/immagine"]
+transform = Transform3D(-3.08644, 0, 0.650774, 0, 3.735, 0, -2.6454, 0, -0.759271, 0, 0, 0)
+shape = SubResource("BoxShape3D_atbuw")
+
+[node name="quadro1" type="MeshInstance3D" parent="items/immagine"]
+transform = Transform3D(-3.08644, 0, 0.650774, 0, 3.735, 0, -2.6454, 0, -0.759271, 0, 0, 0)
+mesh = SubResource("BoxMesh_wfrkt")
+skeleton = NodePath("../..")
+
+[node name="Marker3D" type="Marker3D" parent="items/immagine"]
+transform = Transform3D(-0.716935, 0, 0.69714, 0, 1, 0, -0.69714, 0, -0.716935, 3.078, 0.233, -3.209)
+
+[node name="Label" type="Label" parent="items/immagine"]
+visible = false
+anchors_preset = -1
+anchor_right = 0.137
+anchor_bottom = 0.035
+offset_left = 819.0
+offset_top = 198.0
+offset_right = 820.176
+offset_bottom = 201.32
+text = "deh - didascalia
+bla bla
+bla bla
+bla bla"
+
+[node name="immagine2" type="StaticBody3D" parent="items"]
+transform = Transform3D(-0.0695649, 0, -0.997577, 0, 1, 0, 0.997577, 0, -0.0695649, -14.1788, 3.47205, -15.165)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="items/immagine2"]
+transform = Transform3D(-3.08644, 0, 0.650774, 0, 3.735, 0, -2.6454, 0, -0.759271, 0, 0, 0)
+shape = SubResource("BoxShape3D_atbuw")
+
+[node name="quadro1" type="MeshInstance3D" parent="items/immagine2"]
+transform = Transform3D(-3.08644, 0, 0.650774, 0, 3.735, 0, -2.6454, 0, -0.759271, 0, 0, 0)
+mesh = SubResource("BoxMesh_wfrkt")
+skeleton = NodePath("../../..")
+
+[node name="Marker3D" type="Marker3D" parent="items/immagine2"]
+transform = Transform3D(-0.716935, 0, 0.69714, 0, 1, 0, -0.69714, 0, -0.716935, 3.078, 0.233, -3.209)
+
+[node name="Label" type="Label" parent="items/immagine2"]
+visible = false
+anchors_preset = -1
+anchor_right = 0.137
+anchor_bottom = 0.035
+offset_left = 819.0
+offset_top = 198.0
+offset_right = 820.176
+offset_bottom = 201.32
+text = "deh - didascalia
+bla bla
+bla bla
+bla bla"
+
+[connection signal="input_event" from="items/immagine" to="." method="_on_static_body_3d_input_event"]
+[connection signal="input_event" from="items/immagine2" to="." method="_on_static_body_3d_input_event"]
