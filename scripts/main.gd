@@ -17,23 +17,22 @@ func _process(delta: float) -> void:
 
 
 func _on_immagine_collision_click(event : InputEvent, node : Node) -> void:
-	if event.is_action_pressed("click"):
+	if event.is_action_pressed("click") and (focussedBody == null):
 		print("Collision shape clicked!")
 		focussedBody = node
+		focussedBody.get_node("Label").show()
 		
 		var tween = get_tree().create_tween()
 		tween.tween_property(camera, "position", node.get_node("Marker3D").global_position, 1).set_trans(Tween.TRANS_CUBIC)
 		tween.parallel().tween_property(camera, "rotation", node.get_node("Marker3D").global_rotation, 1).set_trans(Tween.TRANS_CUBIC)
-		focussedBody.get_node("Label").show()
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("esc"):
+	if event.is_action_pressed("esc") and (focussedBody != null):
 		print("Returning to default position")
-		if (focussedBody != null):
-			focussedBody.get_node("Label").hide()
-			focussedBody = null
-			
+		focussedBody.get_node("Label").hide()
+		focussedBody = null
+		
 		var tween = get_tree().create_tween()
-		tween.tween_property(camera, "position", default_position.global_position, 0.5).set_trans(Tween.TRANS_SINE)
-		tween.parallel().tween_property(camera, "rotation", default_position.global_rotation, 0.5).set_trans(Tween.TRANS_SINE)
+		tween.tween_property(camera, "position", default_position.global_position, 1).set_trans(Tween.TRANS_SINE)
+		tween.parallel().tween_property(camera, "rotation", default_position.global_rotation, 1).set_trans(Tween.TRANS_SINE)

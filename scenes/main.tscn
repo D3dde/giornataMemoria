@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://jxvaln4eq8xj"]
+[gd_scene load_steps=11 format=3 uid="uid://jxvaln4eq8xj"]
 
 [ext_resource type="Texture2D" uid="uid://yws8m5sw5878" path="res://textures/test/Vector/texture_01.svg" id="1_gr24q"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_wm6nw"]
 [ext_resource type="Script" path="res://scripts/item.gd" id="3_ik2xn"]
+[ext_resource type="Texture2D" uid="uid://dg6fsk067nq55" path="res://assets/adolf-eichmann-the-architect-of-the-holocaust-in-the-yard.webp" id="4_4app2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ekhn"]
 albedo_texture = ExtResource("1_gr24q")
@@ -11,8 +12,15 @@ albedo_texture = ExtResource("1_gr24q")
 size = Vector2(100, 100)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_atbuw"]
+size = Vector3(1, 1, 1.4082)
 
 [sub_resource type="BoxMesh" id="BoxMesh_wfrkt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aduaw"]
+albedo_texture = ExtResource("4_4app2")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5wibm"]
+size = Vector2(0.925, 4.99)
 
 [node name="Node3D" type="Node3D" node_paths=PackedStringArray("camera", "default_position")]
 script = ExtResource("1_wm6nw")
@@ -25,12 +33,15 @@ transform = Transform3D(0.00616089, 0, 0.999981, 0, 1, 0, -0.999981, 0, 0.006160
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.00616089, 0, 0.999981, 0, 1, 0, -0.999981, 0, 0.00616089, 9.12164, 7.33214, -3.52639)
 
-[node name="items" type="Node" parent="."]
-
-[node name="plane" type="MeshInstance3D" parent="items"]
+[node name="plane" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_3ekhn")
 mesh = SubResource("PlaneMesh_sd3ex")
-skeleton = NodePath("../..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.1024, 0)
+omni_range = 41.5574
+
+[node name="items" type="Node" parent="."]
 
 [node name="immagine" type="StaticBody3D" parent="items"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.1788, 3.47205, 4.72339)
@@ -92,7 +103,43 @@ didascalia
 bla bla bla
 bla bla bla"
 
+[node name="immagine2" type="StaticBody3D" parent="."]
+transform = Transform3D(0.625787, 0, -0.779993, 0, 1, 0, 0.779993, 0, 0.625787, -24.0839, 3.47205, -4.51549)
+script = ExtResource("3_ik2xn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="immagine2"]
+transform = Transform3D(-3.08644, 0, 0.650775, 0, 3.735, 0, -2.6454, 0, -0.759271, -0.132828, 0, 0.154974)
+shape = SubResource("BoxShape3D_atbuw")
+
+[node name="Marker3D" type="Marker3D" parent="immagine2"]
+transform = Transform3D(-0.716935, 0, 0.69714, 0, 1, 0, -0.69714, 0, -0.716935, 3.078, 0.233, -3.209)
+
+[node name="Label" type="Label" parent="immagine2"]
+visible = false
+anchors_preset = -1
+anchor_right = 0.137
+anchor_bottom = 0.035
+offset_left = 819.0
+offset_top = 198.0
+offset_right = 820.176
+offset_bottom = 201.32
+text = "Adolf Eichmann
+l'architetto della morte
+Adolf Eichmann, spesso indicato come l'architetto dell'Olocausto,
+fu un alto funzionario nazista che determinò l'organizzazione della logistica dell'Olocausto,
+compresa la deportazione di milioni di ebrei nei campi di sterminio.
+Dopo la seconda guerra mondiale, Eichmann fuggì in Argentina,
+dove visse sotto falsa identità fino a quando gli agenti del Mossad israeliano lo catturarono nel 1960."
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="immagine2"]
+transform = Transform3D(-3.17138, 2.33635, 0.00734001, -0.131886, -0.10735, -0.99906, -2.53953, -2.91207, 0.0427179, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_aduaw")
+mesh = SubResource("PlaneMesh_5wibm")
+skeleton = NodePath("../CollisionShape3D")
+
 [connection signal="collision_click" from="items/immagine" to="." method="_on_immagine_collision_click"]
 [connection signal="input_event" from="items/immagine" to="items/immagine" method="_on_input_event"]
 [connection signal="collision_click" from="items/immagine2" to="." method="_on_immagine_collision_click"]
 [connection signal="input_event" from="items/immagine2" to="items/immagine2" method="_on_input_event"]
+[connection signal="collision_click" from="immagine2" to="." method="_on_immagine_collision_click"]
+[connection signal="input_event" from="immagine2" to="immagine2" method="_on_input_event"]
