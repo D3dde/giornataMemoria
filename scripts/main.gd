@@ -4,8 +4,8 @@ extends Node3D
 @export var camera : Camera3D
 @export var default_position : Marker3D
 var focussedBody : StaticBody3D
-
-
+@export var noise : FastNoiseLite
+var i = 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -14,7 +14,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
 
 func _on_immagine_collision_click(event : InputEvent, node : Node) -> void:
 	if event.is_action_pressed("click") and (focussedBody == null):
@@ -34,5 +33,5 @@ func _input(event: InputEvent) -> void:
 		focussedBody = null
 		
 		var tween = get_tree().create_tween()
-		tween.tween_property(camera, "position", default_position.global_position, 1).set_trans(Tween.TRANS_SINE)
-		tween.parallel().tween_property(camera, "rotation", default_position.global_rotation, 1).set_trans(Tween.TRANS_SINE)
+		tween.tween_property(camera, "position", default_position.global_position, 1).set_trans(Tween.TRANS_CUBIC)
+		tween.parallel().tween_property(camera, "rotation", default_position.global_rotation, 1).set_trans(Tween.TRANS_CUBIC)
