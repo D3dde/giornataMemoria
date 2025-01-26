@@ -1,3 +1,6 @@
+ColorRect
+CanvasLayer
+ShaderGlobalsOverride
 OmniLight3D
 MeshInstance3D
 StaticBody3D

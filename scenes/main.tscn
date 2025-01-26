@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://jxvaln4eq8xj"]
+[gd_scene load_steps=13 format=3 uid="uid://jxvaln4eq8xj"]
 
 [ext_resource type="Texture2D" uid="uid://yws8m5sw5878" path="res://textures/test/Vector/texture_01.svg" id="1_gr24q"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_wm6nw"]
 [ext_resource type="Script" path="res://scripts/item.gd" id="3_ik2xn"]
 [ext_resource type="Texture2D" uid="uid://dg6fsk067nq55" path="res://assets/adolf-eichmann-the-architect-of-the-holocaust-in-the-yard.webp" id="4_4app2"]
+[ext_resource type="Material" uid="uid://chf531c6efn78" path="res://shader/shader_material.tres" id="5_y3gw0"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_igggg"]
 noise_type = 0
@@ -140,6 +141,17 @@ transform = Transform3D(-3.17138, 2.33635, 0.00734001, -0.131886, -0.10735, -0.9
 material_override = SubResource("StandardMaterial3D_aduaw")
 mesh = SubResource("PlaneMesh_5wibm")
 skeleton = NodePath("../CollisionShape3D")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = ExtResource("5_y3gw0")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
 
 [connection signal="collision_click" from="items/immagine" to="." method="_on_immagine_collision_click"]
 [connection signal="input_event" from="items/immagine" to="items/immagine" method="_on_input_event"]

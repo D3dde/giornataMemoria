@@ -1,2 +1,3 @@
 res://scenes/main.tscn
-res://scripts/main.gd
+res://shader/shader.gdshader
+res://shader/shader_material.tres
